@@ -1,0 +1,26 @@
+spring:
+  # .env import
+  config:
+    import: optional:file:.env[.properties]
+  application:
+    name: scheduler-server
+  datasource:
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}    
+    driver-class-name: org.postgresql.Driver
+mybatis:
+  # mapper 경로 지정
+  mapper-locations: classpath:mybatis/*.xml
+  # xml파일 result type에 패키지명을 생략할 수 있도록 alias 설정
+  type-aliases-package: me.jjye.scheduler-server
+  configuration:
+    # model 프로퍼티 camel case 설정
+    map-underscore-to-camel-case: "true"
+
+hikari:
+  minimum-idle: 5
+  maximum-pool-size: 5
+  idle-timeout: 300000 # 5분
+  max-lifetime: 1800000 # 30분
+  connection-timeout: 30000 # 30초
